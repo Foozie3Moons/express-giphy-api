@@ -11,14 +11,28 @@ html
     button(id='many') Search Many!
     br
     div
-      img
       
     script(src='https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js')
     script.
       $('#one').on('click', function(e) {
         e.preventDefault();
         var query = $('input').val();
-        $.get('/search/one/' + query).done(function(url) {
-          //done
+        $.get('/search/one/' + query).done(function(data) {
+          if ($('div').children().length === 0) {
+            $('div').append(data);
+          } else if ($('div').children().length > 0) {
+            $('div').empty().append(data);
+          }
+        });
+      });
+      $('#many').on('click', function(e) {
+        e.preventDefault();
+        var query = $('input').val();
+        $.get('/search/many/' + query).done(function(data) {
+          if ($('div').children().length === 0) {
+            $('div').append(data);
+          } else if ($('div').children().length > 0) {
+            $('div').empty().append(data);
+          }
         });
       });
